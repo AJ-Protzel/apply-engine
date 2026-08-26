@@ -1,0 +1,36 @@
+# ---------------------------------------------------------------------------
+# companies.yaml -- employers polled every night, one row per ATS board.
+#
+# Target size is 150-250 employers. This file is the seed; it grows as slugs
+# get confirmed.
+#
+# RULE: nothing lands here unvalidated. A wrong slug fails as an empty board,
+# not as an error, so it looks exactly like a company with no openings and can
+# sit here for months quietly contributing nothing. Confirm first:
+#
+#     python -m apply_engine.find_slug "Blue Shield of California"
+#     python -m apply_engine.find_slug --slug blueshieldca
+#
+# Only a board that returns postings confirms a slug.
+#
+# tier: 1 = poll first / highest interest, 2 = normal, 3 = long tail.
+# The `companies` table is the runtime source of truth; this file seeds it.
+# ---------------------------------------------------------------------------
+
+companies: []
+
+# ---------------------------------------------------------------------------
+# Candidate employers, not yet slug-validated. Working list for build step 4.
+#
+# Sacramento region (local address is a real advantage on these):
+#   Intel Folsom, Kaiser Permanente, Sutter Health, UC Davis Health,
+#   Blue Shield of California, VSP Global, Delta Dental, SAFE Credit Union,
+#   Sacramento County, City of Sacramento, Sacramento Municipal Utility
+#   District, Dignity Health, Western Health Advantage, Raley's, Centene,
+#   Health Net, Franchise Tax Board vendors
+#
+# Bay Area mid-market and Seattle-area employers, plus remote-first companies,
+# fill out the rest. Avoid the household-name tech tier: entry-level postings
+# there draw thousands of applicants and the hit rate does not justify the
+# queue slots.
+# ---------------------------------------------------------------------------

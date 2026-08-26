@@ -1,0 +1,85 @@
+"""Find and validate a company's ATS slug.
+
+Slugs are the fiddliest part of the company list: plenty of employers use a slug
+that looks nothing like their name, and a wrong one fails silently as an empty
+board rather than as an error. Nothing goes into `companies.yaml` without being
+confirmed against the live endpoint here.
+
+    python -m apply_engine.find_slug "Blue Shield of California" "Sutter Health"
+    python -m apply_engine.find_slug --slug blueshieldca
+"""
+
+from __future__ import annotations
+
+import argparse
+import re
+import sys
+
+from .sources import ATS_MODULES
+from .sources.base import BoardNotFound, SourceUnavailable
+
+
+def candidate_slugs(name: str) -> list[str]:
+    """Plausible slugs for a company name, most likely first."""
+    cleaned = re.sub(r"[^\w\s-]", "", name.casefold()).strip()
+    words = [w for w in cleaned.split() if w not in {"the", "of", "and", "inc", "llc", "corp"}]
+
+    joined = "".join(words)
+    hyphenated = "-".join(words)
+
+    candidates = [joined, hyphenated]
+    if len(words) > 1:
+        candidates.append(words[0])
+        candidates.append("".join(w[0] for w in words))
+    return list(dict.fromkeys(c for c in candidates if c))
+
+
+def probe(slug: str) -> list[tuple[str, int]]:
+    """Try a slug against all five ATS endpoints. Returns (ats, job_count)."""
+    hits: list[tuple[str, int]] = []
+    for ats, module in ATS_MODULES.items():
+        try:
+            jobs = module.fetch(slug)
+        except BoardNotFound:
+            continue
+        except SourceUnavailable as exc:
+            print(f"  {ats:<11} unavailable: {exc}", file=sys.stderr)
+            continue
+        # An empty board is not proof of a correct slug -- some ATSes return an
+        # empty list for anything. Only a non-empty board confirms it.
+        if jobs:
+            hits.append((ats, len(jobs)))
+    return hits
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Validate ATS slugs against live endpoints.")
+    parser.add_argument("names", nargs="*", help="Company names to guess slugs for.")
+    parser.add_argument("--slug", action="append", default=[],
+                        help="Test an exact slug instead of guessing.")
+    args = parser.parse_args(argv)
+
+    if not args.names and not args.slug:
+        parser.error("give at least one company name or --slug")
+
+    for slug in args.slug:
+        print(f"{slug}:")
+        for ats, count in probe(slug) or []:
+            print(f"  CONFIRMED  {ats:<11} {count} postings")
+
+    for name in args.names:
+        print(f"\n{name}")
+        for slug in candidate_slugs(name):
+            hits = probe(slug)
+            for ats, count in hits:
+                print(f"  CONFIRMED  ats: {ats:<11} slug: {slug:<24} ({count} postings)")
+            if hits:
+                break
+        else:
+            print("  no slug confirmed -- check their careers page URL by hand")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
