@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: "30 11 * * *"
   workflow_dispatch:
+  # Tests run on every push; the ingest job below is gated so a push never
+  # triggers a real run against the database.
+  push:
+    branches: [main]
+  pull_request:
 
 concurrency:
   group: ingest
@@ -14,6 +19,7 @@ concurrency:
 
 jobs:
   ingest:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
