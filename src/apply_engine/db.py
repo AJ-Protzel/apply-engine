@@ -70,7 +70,12 @@ def mark_company_failed(db: Client, company: dict[str, Any]) -> bool:
 # Jobs
 # ---------------------------------------------------------------------------
 
-UPSERT_BATCH = 500
+# Sized against the steady state, not the first run. On night one most rows are
+# INSERTs and 500 is comfortable; every night after that the same ~10k postings
+# are still live, so the upsert is almost entirely UPDATEs, which are far slower.
+# At 500 that reliably hit Postgres's statement timeout (57014) and failed the
+# whole run. 100 stays well inside it.
+UPSERT_BATCH = 100
 
 
 def upsert_jobs(db: Client, jobs: list[Job]) -> list[dict[str, Any]]:
