@@ -70,28 +70,41 @@ def mark_company_failed(db: Client, company: dict[str, Any]) -> bool:
 # Jobs
 # ---------------------------------------------------------------------------
 
+UPSERT_BATCH = 500
+
+
 def upsert_jobs(db: Client, jobs: list[Job]) -> list[dict[str, Any]]:
     """Insert new postings, refresh `last_seen_at` on ones already stored.
 
     `first_seen_at` is never overwritten: the daily scoring pass selects on it,
     so bumping it would make an old posting look new every night.
+
+    Sent in batches. Each row carries a full job description plus the raw API
+    payload, so a night's haul across 150 boards is tens of megabytes -- one
+    request that size times out against PostgREST and takes the whole run with
+    it.
     """
     if not jobs:
         return []
 
-    rows = []
     now = datetime.now(UTC).isoformat()
+    rows = []
     for job in jobs:
         row = job.model_dump(mode="json", exclude={"dedupe_key"})
         row["last_seen_at"] = now
         rows.append(row)
 
-    response = (
-        db.table("jobs")
-        .upsert(rows, on_conflict="source,source_job_id", ignore_duplicates=False)
-        .execute()
-    )
-    return response.data or []
+    stored: list[dict[str, Any]] = []
+    for start in range(0, len(rows), UPSERT_BATCH):
+        batch = rows[start:start + UPSERT_BATCH]
+        response = (
+            db.table("jobs")
+            .upsert(batch, on_conflict="source,source_job_id", ignore_duplicates=False)
+            .execute()
+        )
+        stored.extend(response.data or [])
+        log.info("Upserted %d/%d jobs", len(stored), len(rows))
+    return stored
 
 
 def write_filter_results(db: Client, results: dict[int, FilterResult]) -> None:
@@ -101,7 +114,10 @@ def write_filter_results(db: Client, results: dict[int, FilterResult]) -> None:
         {"job_id": job_id, "passed": result.passed, "kill_rule": result.kill_rule}
         for job_id, result in results.items()
     ]
-    db.table("job_filters").upsert(rows, on_conflict="job_id").execute()
+    for start in range(0, len(rows), UPSERT_BATCH):
+        db.table("job_filters").upsert(
+            rows[start:start + UPSERT_BATCH], on_conflict="job_id"
+        ).execute()
 
 
 def blocked_employers(db: Client) -> list[dict[str, Any]]:
