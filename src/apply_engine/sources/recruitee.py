@@ -55,9 +55,18 @@ def _parse(entry: dict[str, Any], slug: str, company_name: str | None) -> RawJob
 
 
 def _parse_date(value: str | None) -> datetime | None:
+    """Recruitee stamps dates as `2026-07-29 08:20:35 UTC`.
+
+    That trailing zone name is not ISO 8601 and `fromisoformat` rejects it, so
+    every Recruitee posting used to land with `posted_at` null -- invisible,
+    because a null date looks like a source that simply does not publish one.
+    """
     if not value:
         return None
-    for candidate in (value, value.replace("Z", "+00:00")):
+    normalized = value.strip()
+    if normalized.endswith(" UTC"):
+        normalized = normalized[:-4] + "+00:00"
+    for candidate in (normalized, normalized.replace("Z", "+00:00")):
         try:
             return datetime.fromisoformat(candidate)
         except ValueError:

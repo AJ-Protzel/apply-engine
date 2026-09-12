@@ -1,9 +1,10 @@
 -- ---------------------------------------------------------------------------
--- apply-engine schema, migration 001
+-- apply-engine schema. This is the whole schema; there is no 002.
 --
--- Applied against the existing Supabase project. Every table is prefixed
--- nothing special -- it shares a project with an unrelated app, so names are
--- chosen to not collide.
+-- Every statement is `if not exists` / `or replace`, so the file is the
+-- install: run it once against an empty Postgres and the pipeline has
+-- everything it reads. It shares a project with an unrelated app, so the names
+-- are chosen not to collide rather than namespaced behind a prefix.
 --
 -- Design notes worth knowing before changing anything:
 --   * jobs is append-mostly. We never delete a posting we've seen; last_seen_at
@@ -35,8 +36,12 @@ create table if not exists jobs (
   company         text not null,
   title           text not null,
   location_raw    text,
-  region          text,                      -- 'remote-us' | 'ca-norcal' | 'ca-other' | 'wa' | 'other'
-  employment_type text,                      -- 'full_time' | 'contract' | 'c2h' | 'part_time' | 'intern'
+  -- Both vocabularies are owned by models.py (Region, EmploymentType) and
+  -- constrained here so a drifted value fails loudly at insert rather than
+  -- quietly widening the column. Adding a value means editing both.
+  region          text check (region in ('remote-us','ca-norcal','ca-other','wa','other')),
+  employment_type text check (employment_type in
+                    ('full_time','contract','contract_to_hire','part_time','intern')),
   salary_min      int,
   salary_max      int,
   description     text,

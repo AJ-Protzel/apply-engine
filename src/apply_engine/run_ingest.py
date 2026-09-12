@@ -1,7 +1,8 @@
 """Ingest entrypoint. Runs on GitHub Actions at 04:30 PT daily.
 
-Pipeline: fetch every source -> normalize -> dedupe across sources -> upsert ->
-run hard filters -> check recruiter conflicts -> write telemetry.
+Pipeline: seed companies from companies.yaml -> fetch every source ->
+normalize -> dedupe across sources -> upsert -> run hard filters -> check
+recruiter conflicts -> write telemetry.
 
 No scoring and no tailoring happen here. Those need judgment and run in the
 scheduled session at 06:45 PT, which reads what this wrote.
@@ -33,7 +34,17 @@ def collect(db_client: Any, *, dry_run: bool = False) -> tuple[list[Job], Counte
     stats: Counter = Counter()
     raw_jobs = []
 
-    companies = [] if dry_run else db.active_companies(db_client)
+    if dry_run:
+        companies = []
+    else:
+        # companies.yaml is the reviewed list; the table is the runtime copy. A
+        # fresh install has an empty table, so without this the run would poll
+        # the two board-wide feeds and nothing else -- and report success while
+        # doing it.
+        stats["companies_added"] = db.sync_companies(db_client)
+        companies = db.active_companies(db_client)
+    stats["companies_polled"] = len(companies)
+
     for company in companies:
         module = ATS_MODULES.get(company["ats"])
         if module is None:
@@ -115,6 +126,35 @@ def apply_filters(
         db.skip_for_recruiter_conflict(db_client, job_id, conflict)
 
 
+def dry_run(profile: dict[str, Any]) -> int:
+    """The two board-wide feeds through the filters, printing the kill tally.
+
+    No database, no credentials, no company list -- so this is the one command
+    that works on a fresh clone, which makes it the demonstration of the claim
+    the whole repo rests on: every rejection names the rule that caused it, so
+    "my filters are probably too strict" becomes a number. The tally below is
+    that number, on live postings, in about forty seconds.
+    """
+    jobs, stats = collect(None, dry_run=True)
+    tally: Counter = Counter()
+    kept = 0
+
+    for job in jobs:
+        result = filters.evaluate(job, profile)
+        if result.passed:
+            kept += 1
+        else:
+            tally[result.kill_rule] += 1
+
+    log.info("Dry run: %d postings, %d pass the hard filters (%d killed)",
+             len(jobs), kept, len(jobs) - kept)
+    for rule, count in tally.most_common():
+        log.info("  %4d  %s", count, rule)
+    log.info("Source counts: %s",
+             {k: v for k, v in sorted(stats.items()) if k.startswith("raw_")})
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Ingest job postings.")
     parser.add_argument("--dry-run", action="store_true",
@@ -130,10 +170,7 @@ def main(argv: list[str] | None = None) -> int:
     profile = load_profile()
 
     if args.dry_run:
-        jobs, stats = collect(None, dry_run=True)
-        kept = sum(1 for j in jobs if filters.evaluate(j, profile).passed)
-        log.info("Dry run: %d jobs, %d would pass the hard filters", len(jobs), kept)
-        return 0
+        return dry_run(profile)
 
     db_client = db.client()
     run_id = db.start_run(db_client, "ingest")

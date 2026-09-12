@@ -43,9 +43,16 @@ compensation:
   missing_salary: keep_and_flag
 
 employment_types:
+  # These must be spelled exactly as models.EmploymentType spells them --
+  # full_time, contract, contract_to_hire, part_time, intern. A value that is
+  # not in that list can never match, so the rule silently never fires and the
+  # kill it should have logged gets attributed to the allow-list instead.
+  # tests/test_normalize.py asserts this file only names values the code emits.
   allow: [full_time, contract, contract_to_hire]
-  deny: [part_time, internship, unpaid]
+  deny: [part_time, intern]
   min_contract_months: 6
+  # "unpaid" and "commission-only" are not employment types any ATS reports;
+  # they are description language, and hard_kills.description_regex catches them.
 
 volume:
   # Start small. Raise once queue quality is proven -- that is the whole reason

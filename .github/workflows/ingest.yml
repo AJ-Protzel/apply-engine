@@ -1,14 +1,21 @@
 name: ingest
 
-# 04:30 America/Los_Angeles. Cron is fixed UTC, so this is PDT; it drifts an
-# hour when Pacific goes to standard time in November. The scoring pass runs
-# more than two hours later, which leaves plenty of room either way.
+# The nightly schedule is gone on purpose.
+#
+# This ran at 04:30 America/Los_Angeles against a Supabase project that no
+# longer exists. A cron pointed at a dead database does not fail quietly -- it
+# fails every morning, forever, and turns the Actions tab into a wall of red for
+# anyone who came to read the code. Dropping the schedule and keeping the job
+# dispatchable is the honest state: the pipeline still runs for anyone who
+# supplies their own SUPABASE_* secrets, and nothing pretends to be running when
+# it is not.
+#
+# The schedule was `cron: "30 11 * * *"` -- 04:30 PDT, drifting an hour when
+# Pacific went to standard time, which the 06:45 scoring pass had room to absorb.
 on:
-  schedule:
-    - cron: "30 11 * * *"
   workflow_dispatch:
   # Tests run on every push; the ingest job below is gated so a push never
-  # triggers a real run against the database.
+  # triggers a real run against a database.
   push:
     branches: [main]
   pull_request:
@@ -19,7 +26,7 @@ concurrency:
 
 jobs:
   ingest:
-    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 20
 

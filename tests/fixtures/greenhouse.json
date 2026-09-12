@@ -1,0 +1,103 @@
+{
+ "jobs": [
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/algolia/jobs/6141481004",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "education": "education_optional",
+   "internal_job_id": 5199063004,
+   "location": {
+    "name": "London, England"
+   },
+   "metadata": null,
+   "id": 6141481004,
+   "updated_at": "2026-08-21T05:34:19-04:00",
+   "requisition_id": "2304-2",
+   "title": "Account Manager - Dutch speaking ",
+   "company_name": "Algolia",
+   "first_published": "2026-08-18T09:26:35-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;p&gt;At Algolia, we’re proud to be a pioneer and market leader in AI Search, empowering 18,000+ businesses to deliver blazing-fast, predictive search and browse experiences at internet scale. Every week, we power over 30 billion search requests — four times more than Microsoft Bing, Yahoo, Baidu, Yandex, and DuckDuckGo combined.&lt;/p&gt;\n&lt;p&gt;In  ...[trimmed]",
+   "departments": [
+    {
+     "id": 4010042004,
+     "name": "Direct Sales",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 4004874004,
+     "name": "London",
+     "location": "London, England, United Kingdom",
+     "child_ids": [],
+     "parent_id": 4040162004
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/algolia/jobs/6141819004",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "education": "education_optional",
+   "internal_job_id": 5189345004,
+   "location": {
+    "name": "Paris, France"
+   },
+   "metadata": null,
+   "id": 6141819004,
+   "updated_at": "2026-08-19T06:47:38-04:00",
+   "requisition_id": "2293-2",
+   "title": "Business Development Representative - Dutch Speaker ",
+   "company_name": "Algolia",
+   "first_published": "2026-08-12T04:07:29-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;div class=&quot;content-intro&quot;&gt;&lt;p&gt;At Algolia, we’re proud to be a pioneer and market leader in AI Search, empowering 18,000+ businesses to deliver blazing-fast, predictive search and browse experiences at internet scale. Every week, we power over 30 billion search requests — four times more than Microsoft Bing, Yahoo, Baidu, Yandex, and DuckDuckGo combined.&lt;/p&gt;\n&lt;p&gt;In  ...[trimmed]",
+   "departments": [
+    {
+     "id": 4010094004,
+     "name": "Sales Development",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 4004874004,
+     "name": "London",
+     "location": "London, England, United Kingdom",
+     "child_ids": [],
+     "parent_id": 4040162004
+    }
+   ],
+   "ai_disclaimer": null,
+   "include_ai_disclaimer": null,
+   "ai_opt_out_request_url": null
+  }
+ ],
+ "meta": {
+  "total": 32
+ }
+}
