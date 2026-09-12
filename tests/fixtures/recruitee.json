@@ -1,0 +1,282 @@
+{
+ "offers": [
+  {
+   "position": 18,
+   "state_name": "Auvergne-Rhône-Alpes",
+   "max_hours": null,
+   "education_code": "college_coursework",
+   "mailbox_email": "job.k2h3b@spring.recruitee.com",
+   "careers_url": "https://spring.recruitee.com/o/business-developer-retail-lyon-stage-ou-alternance",
+   "employment_type_code": "internship",
+   "created_at": "2026-07-29 08:19:33 UTC",
+   "locations_question_required": true,
+   "state_code": "ARA",
+   "on_site": false,
+   "options_cv": "required",
+   "max_hours_per_week": null,
+   "options_phone": "required",
+   "guid": "k2h3b",
+   "sharing_title": "Business Developer Retail Lyon - Stage ou Alternance",
+   "min_hours_per_week": null,
+   "open_questions": [
+    {
+     "id": 4275161,
+     "position": 1,
+     "options": {},
+     "required": false,
+     "body": "Tu as montré des prédispositions pour trouver des sources de business et mener des projets à bien ?",
+     "kind": "boolean",
+     "translations": {
+      "fr": {
+       "body": "Tu as montré des prédispositions pour trouver des sources de business et mener des projets à bien ?"
+      }
+     },
+     "open_question_options": []
+    },
+    {
+     "id": 4275162,
+     "position": 2,
+     "options": {},
+     "required": false,
+     "body": "Tu as envie de travailler avec le sourire et dans la bonne humeur ?",
+     "kind": "boolean",
+     "translations": {
+      "fr": {
+       "body": "Tu as envie de travailler avec le sourire et dans la bonne humeur ?"
+      }
+     },
+     "open_question_options": []
+    },
+    {
+     "id": 4275163,
+     "position": 3,
+     "options": {},
+     "required": false,
+     "body": "Es-tu éligible à une convention de stage de minimum 6 mois ?",
+     "kind": "boolean",
+     "translations": {
+      "fr": {
+       "body": "Es-tu éligible à une convention de stage de minimum 6 mois ?"
+      }
+     },
+     "open_question_options": []
+    }
+   ],
+   "country": "France",
+   "salary": {
+    "max": null,
+    "min": null,
+    "period": null,
+    "currency": null
+   },
+   "cover_image": null,
+   "updated_at": "2026-08-04 14:39:33 UTC",
+   "published_at": "2026-07-29 08:20:35 UTC",
+   "options_cover_letter": "off",
+   "dynamic_fields": [],
+   "sharing_image": null,
+   "slug": "business-developer-retail-lyon-stage-ou-alternance",
+   "title": "Business Developer Retail Lyon - Stage ou Alternance",
+   "postal_code": null,
+   "country_code": "FR",
+   "locations_question": "À partir de quel endroit aimeriez-vous travailler ?",
+   "options_salutation": "off",
+   "city": "Lyon",
+   "locations": [
+    {
+     "id": 239538,
+     "name": "Lyon",
+     "state": "Auvergne-Rhône-Alpes",
+     "country": "France",
+     "city": "Lyon",
+     "translations": {
+      "fr": {
+       "name": "Lyon",
+       "city": "Lyon",
+       "postal_code": null,
+       "street": null,
+       "note": null
+      }
+     },
+     "country_code": "FR",
+     "state_code": "ARA",
+     "postal_code": null,
+     "street": null,
+     "note": null
+    }
+   ],
+   "careers_apply_url": "https://spring.recruitee.com/o/business-developer-retail-lyon-stage-ou-alternance/c/new",
+   "company_name": "SPRiNG",
+   "requirements": null,
+   "description": "<p style=\"text-align:start;\"><strong>SPRiNG recrute un nouveau business developer pour ses activités en retail</strong></p><p style=\"text-align:start;min-height: 1.7em;\"></p><p style=\"text-align:start;\">Sur un marché qui a très peu évolué ces dernières années et qui n'est plus en phase avec les attentes des consos, SPRiNG propose des produits :</p><ul><li><p>Sans matières controversées</p></li><li ...[trimmed]",
+   "experience_code": "student_college",
+   "close_at": null,
+   "min_hours": null,
+   "sharing_description": "SPRiNG recrute un nouveau business developer pour ses activités en retailSur un marché qui a très peu évolué ces dernières années et qui n'est plus en phase avec les attentes des consos, SPRiNG propos",
+   "category_code": "retail",
+   "location_question_visible": false,
+   "remote": false,
+   "locations_question_type": "multiple_choice",
+   "id": 2693374,
+   "location": "Lyon, Auvergne-Rhône-Alpes, France",
+   "department": "Ops & Retail",
+   "highlight": null,
+   "options_photo": "off",
+   "hybrid": true,
+   "options_title": "off",
+   "status": "published",
+   "translations": {
+    "fr": {
+     "description": "<p style=\"text-align:start;\"><strong>SPRiNG recrute un nouveau business developer pour ses activités en retail</strong></p><p style=\"text-align:start;min-height: 1.7em;\"></p><p style=\"text-align:start;\">Sur un marché qui a très peu évolué ces dernières années et qui n'est plus en phase avec les attentes des consos, SPRiNG propose des produits :</p><ul><li><p>Sans matières controversées</p></li><li ...[trimmed]",
+     "title": "Business Developer Retail Lyon - Stage ou Alternance",
+     "highlight": null,
+     "requirements": null,
+     "sharing_image": null,
+     "sharing_title": "Business Developer Retail Lyon - Stage ou Alternance",
+     "sharing_description": "SPRiNG recrute un nouveau business developer pour ses activités en retailSur un marché qui a très peu évolué ces dernières années et qui n'est plus en phase avec les attentes des consos, SPRiNG propos",
+     "locations_question": "À partir de quel endroit aimeriez-vous travailler ?"
+    }
+   },
+   "tags": []
+  },
+  {
+   "position": 17,
+   "state_name": "Provence-Alpes-Côte d'Azur",
+   "max_hours": null,
+   "education_code": "college_coursework",
+   "mailbox_email": "job.w8nfv@spring.recruitee.com",
+   "careers_url": "https://spring.recruitee.com/o/business-developer-retail-marseille-stage-ou-alternance",
+   "employment_type_code": "internship",
+   "created_at": "2026-07-29 07:54:51 UTC",
+   "locations_question_required": true,
+   "state_code": "PAC",
+   "on_site": false,
+   "options_cv": "required",
+   "max_hours_per_week": null,
+   "options_phone": "required",
+   "guid": "w8nfv",
+   "sharing_title": "Business Developer Retail Marseille - Stage ou Alternance",
+   "min_hours_per_week": null,
+   "open_questions": [
+    {
+     "id": 4275113,
+     "position": 1,
+     "options": {},
+     "required": false,
+     "body": "Tu as montré des prédispositions pour trouver des sources de business et mener des projets à bien ?",
+     "kind": "boolean",
+     "translations": {
+      "fr": {
+       "body": "Tu as montré des prédispositions pour trouver des sources de business et mener des projets à bien ?"
+      }
+     },
+     "open_question_options": []
+    },
+    {
+     "id": 4275114,
+     "position": 2,
+     "options": {},
+     "required": false,
+     "body": "Tu as envie de travailler avec le sourire et dans la bonne humeur ?",
+     "kind": "boolean",
+     "translations": {
+      "fr": {
+       "body": "Tu as envie de travailler avec le sourire et dans la bonne humeur ?"
+      }
+     },
+     "open_question_options": []
+    },
+    {
+     "id": 4275115,
+     "position": 3,
+     "options": {},
+     "required": false,
+     "body": "Es-tu éligible à une convention de stage de minimum 6 mois ?",
+     "kind": "boolean",
+     "translations": {
+      "fr": {
+       "body": "Es-tu éligible à une convention de stage de minimum 6 mois ?"
+      }
+     },
+     "open_question_options": []
+    }
+   ],
+   "country": "France",
+   "salary": {
+    "max": null,
+    "min": null,
+    "period": null,
+    "currency": null
+   },
+   "cover_image": null,
+   "updated_at": "2026-08-04 19:12:43 UTC",
+   "published_at": "2026-07-29 08:01:14 UTC",
+   "options_cover_letter": "off",
+   "dynamic_fields": [],
+   "sharing_image": null,
+   "slug": "business-developer-retail-marseille-stage-ou-alternance",
+   "title": "Business Developer Retail Marseille - Stage ou Alternance",
+   "postal_code": null,
+   "country_code": "FR",
+   "locations_question": "À partir de quel endroit aimeriez-vous travailler ?",
+   "options_salutation": "off",
+   "city": "Marseille",
+   "locations": [
+    {
+     "id": 292818,
+     "name": "Marseille",
+     "state": "Provence-Alpes-Côte d'Azur",
+     "country": "France",
+     "city": "Marseille",
+     "translations": {
+      "fr": {
+       "name": "Marseille",
+       "city": "Marseille",
+       "postal_code": null,
+       "street": null,
+       "note": null
+      }
+     },
+     "country_code": "FR",
+     "state_code": "PAC",
+     "postal_code": null,
+     "street": null,
+     "note": null
+    }
+   ],
+   "careers_apply_url": "https://spring.recruitee.com/o/business-developer-retail-marseille-stage-ou-alternance/c/new",
+   "company_name": "SPRiNG",
+   "requirements": null,
+   "description": "<p style=\"text-align:start;\"><strong>SPRiNG recrute un nouveau business developer pour ses activités en retail</strong></p><p style=\"text-align:start;min-height: 1.7em;\"></p><p style=\"text-align:start;\">Sur un marché qui a très peu évolué ces dernières années et qui n'est plus en phase avec les attentes des consos, SPRiNG propose des produits :</p><ul><li><p>Sans matières controversées</p></li><li ...[trimmed]",
+   "experience_code": "student_college",
+   "close_at": null,
+   "min_hours": null,
+   "sharing_description": "SPRiNG recrute un nouveau business developer pour ses activités en retailSur un marché qui a très peu évolué ces dernières années et qui n'est plus en phase avec les attentes des consos, SPRiNG propos",
+   "category_code": "retail",
+   "location_question_visible": false,
+   "remote": false,
+   "locations_question_type": "multiple_choice",
+   "id": 2693349,
+   "location": "Marseille, Provence-Alpes-Côte d'Azur, France",
+   "department": "Ops & Retail",
+   "highlight": null,
+   "options_photo": "off",
+   "hybrid": true,
+   "options_title": "off",
+   "status": "published",
+   "translations": {
+    "fr": {
+     "description": "<p style=\"text-align:start;\"><strong>SPRiNG recrute un nouveau business developer pour ses activités en retail</strong></p><p style=\"text-align:start;min-height: 1.7em;\"></p><p style=\"text-align:start;\">Sur un marché qui a très peu évolué ces dernières années et qui n'est plus en phase avec les attentes des consos, SPRiNG propose des produits :</p><ul><li><p>Sans matières controversées</p></li><li ...[trimmed]",
+     "title": "Business Developer Retail Marseille - Stage ou Alternance",
+     "highlight": null,
+     "requirements": null,
+     "sharing_image": null,
+     "sharing_title": "Business Developer Retail Marseille - Stage ou Alternance",
+     "sharing_description": "SPRiNG recrute un nouveau business developer pour ses activités en retailSur un marché qui a très peu évolué ces dernières années et qui n'est plus en phase avec les attentes des consos, SPRiNG propos",
+     "locations_question": "À partir de quel endroit aimeriez-vous travailler ?"
+    }
+   },
+   "tags": []
+  }
+ ]
+}

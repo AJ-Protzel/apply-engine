@@ -10,8 +10,17 @@ from __future__ import annotations
 import html
 import re
 
-from .models import Job, RawJob
+from .models import EmploymentType, Job, RawJob, Region
 
+# Block tags become a line break; inline tags vanish. Replacing every tag with a
+# newline -- which an earlier version did -- turned "Build <b>reports</b>." into
+# three lines and split sentences mid-word, and that text is what the scoring
+# model reads. It is also what description_regex matches against, so a rule like
+# `[5-9]\+?\s*years` was relying on that `\s*` to paper over the damage.
+_BLOCK_TAG = re.compile(
+    r"(?i)</?(?:p|div|br|hr|li|ul|ol|dl|dt|dd|tr|td|th|table|thead|tbody"
+    r"|h[1-6]|section|article|header|footer|aside|nav|blockquote|pre)\b[^>]*>"
+)
 _TAG = re.compile(r"<[^>]+>")
 _WS = re.compile(r"[ \t\r\f\v]+")
 _BLANK_LINES = re.compile(r"\n{3,}")
@@ -23,7 +32,18 @@ _NORCAL = (
     "sunnyvale", "santa clara", "fremont", "walnut creek", "bay area",
 )
 
-_REMOTE_HINTS = ("remote", "anywhere", "work from home", "wfh", "distributed")
+# A location string containing any of these is describing remote work.
+_REMOTE_HINTS = ("remote", "anywhere", "worldwide", "global", "work from home",
+                 "wfh", "distributed")
+# ...and a string made up of ONLY these words names no place at all, so nothing
+# in it excludes the US. Every one-word entry above has to appear here or it can
+# never reach the generic branch: "worldwide" was missing from the hint list, so
+# a posting reading "Worldwide" was sent off to be judged as a place and came
+# back "other". test_normalize.py asserts the two lists agree.
+_GENERIC_REMOTE = frozenset({
+    "remote", "anywhere", "worldwide", "global", "work", "from", "home",
+    "wfh", "distributed", "flexible", "any", "location",
+})
 _US_HINTS = ("us", "usa", "united states", "u.s.")
 
 
@@ -31,7 +51,8 @@ def strip_html(value: str | None) -> str | None:
     """ATS descriptions are HTML. Store text; the raw payload keeps the markup."""
     if not value:
         return None
-    text = _TAG.sub("\n", value)
+    text = _BLOCK_TAG.sub("\n", value)
+    text = _TAG.sub("", text)
     text = html.unescape(text)
     text = _WS.sub(" ", text)
     text = "\n".join(line.strip() for line in text.splitlines())
@@ -39,7 +60,7 @@ def strip_html(value: str | None) -> str | None:
     return text.strip() or None
 
 
-def classify_region(location: str | None, *, remote_hint: bool = False) -> str:
+def classify_region(location: str | None, *, remote_hint: bool = False) -> Region:
     """Bucket a location string.
 
     `remote_hint` says the *source* only lists remote roles. That is not the
@@ -73,14 +94,11 @@ def classify_region(location: str | None, *, remote_hint: bool = False) -> str:
 
 def _is_generic_remote(lowered: str) -> bool:
     """"Remote", "Anywhere", "Worldwide" -- no place named, so nothing excludes US."""
-    stripped = re.sub(r"[^a-z ]", " ", lowered)
-    tokens = set(stripped.split())
-    generic = {"remote", "anywhere", "worldwide", "global", "work", "from", "home",
-               "wfh", "distributed", "flexible", "any", "location"}
-    return bool(tokens) and tokens.issubset(generic)
+    tokens = set(re.sub(r"[^a-z ]", " ", lowered).split())
+    return bool(tokens) and tokens.issubset(_GENERIC_REMOTE)
 
 
-def classify_employment_type(raw: str | None, title: str = "") -> str | None:
+def classify_employment_type(raw: str | None, title: str = "") -> EmploymentType | None:
     haystack = f"{raw or ''} {title}".casefold()
     if not haystack.strip():
         return None

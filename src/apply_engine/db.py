@@ -14,6 +14,7 @@ from typing import Any
 
 from supabase import Client, create_client
 
+from .config import load_companies
 from .models import FilterResult, Job
 
 log = logging.getLogger(__name__)
@@ -30,15 +31,67 @@ def client() -> Client:
     return create_client(url, key)
 
 
+# Sized against the steady state, not the first run. On night one most rows are
+# INSERTs and 500 is comfortable; every night after that the same ~10k postings
+# are still live, so the upsert is almost entirely UPDATEs, which are far slower.
+# At 500 that reliably hit Postgres's statement timeout (57014) and failed the
+# whole run. 100 stays well inside it.
+UPSERT_BATCH = 100
+
+
 # ---------------------------------------------------------------------------
 # Companies
 # ---------------------------------------------------------------------------
 
-def active_companies(db: Client) -> list[dict[str, Any]]:
-    response = (
-        db.table("companies").select("*").eq("active", True).order("tier").execute()
-    )
-    return response.data or []
+def sync_companies(db: Client) -> int:
+    """Insert boards listed in companies.yaml that the table does not have yet.
+
+    The file and the table own different halves of the same fact, and getting
+    that split wrong is how the list rots. companies.yaml owns MEMBERSHIP -- it
+    is reviewed, commented, and every slug in it was confirmed against a live
+    board by find_slug. The table owns RUNTIME STATE -- fail_count, last_ok_at,
+    and whether a board is still active.
+
+    So this is insert-if-missing, never an upsert. A board that went dead and
+    was deactivated after five consecutive misses must stay deactivated; an
+    upsert on (ats, slug) would set `active` back to true every single night and
+    the deactivation mechanism would be decorative.
+
+    Returns how many rows were added, which lands in the run stats -- adding a
+    company should be visible in telemetry, not inferred from a row count.
+    """
+    seed = [
+        {
+            "name": row["name"],
+            "ats": row["ats"],
+            "slug": row["slug"],
+            "tier": row.get("tier", 2),
+        }
+        for row in load_companies()
+        if row.get("name") and row.get("ats") and row.get("slug")
+    ]
+    if not seed:
+        return 0
+
+    before = len(active_companies(db, include_inactive=True))
+    for start in range(0, len(seed), UPSERT_BATCH):
+        db.table("companies").upsert(
+            seed[start:start + UPSERT_BATCH],
+            on_conflict="ats,slug",
+            ignore_duplicates=True,
+        ).execute()
+    added = len(active_companies(db, include_inactive=True)) - before
+
+    if added:
+        log.info("Seeded %d new companies from companies.yaml", added)
+    return max(added, 0)
+
+
+def active_companies(db: Client, *, include_inactive: bool = False) -> list[dict[str, Any]]:
+    query = db.table("companies").select("*")
+    if not include_inactive:
+        query = query.eq("active", True)
+    return query.order("tier").execute().data or []
 
 
 def mark_company_ok(db: Client, company_id: int) -> None:
@@ -69,14 +122,6 @@ def mark_company_failed(db: Client, company: dict[str, Any]) -> bool:
 # ---------------------------------------------------------------------------
 # Jobs
 # ---------------------------------------------------------------------------
-
-# Sized against the steady state, not the first run. On night one most rows are
-# INSERTs and 500 is comfortable; every night after that the same ~10k postings
-# are still live, so the upsert is almost entirely UPDATEs, which are far slower.
-# At 500 that reliably hit Postgres's statement timeout (57014) and failed the
-# whole run. 100 stays well inside it.
-UPSERT_BATCH = 100
-
 
 def upsert_jobs(db: Client, jobs: list[Job]) -> list[dict[str, Any]]:
     """Insert new postings, refresh `last_seen_at` on ones already stored.

@@ -9,12 +9,31 @@ what lets a new source be added without touching the filter or storage layers.
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal, get_args
 
 from pydantic import BaseModel, Field
 
-EmploymentType = str  # 'full_time' | 'contract' | 'c2h' | 'part_time' | 'intern'
-Region = str  # 'remote-us' | 'ca-norcal' | 'ca-other' | 'wa' | 'other'
+# ---------------------------------------------------------------------------
+# The vocabulary. This is the only place these strings are defined.
+#
+# They previously lived in four places -- a comment here, a comment in
+# 001_init.sql, the branches of normalize.classify_employment_type, and the
+# allow/deny lists in profile.yaml -- and two of the four had drifted. The
+# schema said `c2h` while the code emitted `contract_to_hire`, and profile.yaml
+# denied `internship` for a value the code spells `intern`, so the deny rule
+# never fired and internships were killed by the allow-list instead, logging a
+# kill_rule that named the wrong reason. A tuning log is only worth having if it
+# is right.
+#
+# Now: Literal here, a CHECK constraint in 001_init.sql generated from the same
+# list, and a test asserting profile.yaml only names values that appear here.
+# ---------------------------------------------------------------------------
+
+EmploymentType = Literal["full_time", "contract", "contract_to_hire", "part_time", "intern"]
+Region = Literal["remote-us", "ca-norcal", "ca-other", "wa", "other"]
+
+EMPLOYMENT_TYPES: frozenset[str] = frozenset(get_args(EmploymentType))
+REGIONS: frozenset[str] = frozenset(get_args(Region))
 
 
 class RawJob(BaseModel):

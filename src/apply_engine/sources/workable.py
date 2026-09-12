@@ -51,13 +51,42 @@ def _parse(entry: dict[str, Any], slug: str, company_name: str | None) -> RawJob
 
 
 def _location(entry: dict[str, Any]) -> str | None:
+    """Workable spreads the place across three shapes, and `location` is not one.
+
+    A posting from `?details=true` carries the place at the TOP level as
+    `city`/`state`/`country`, plus a `locations[]` list keyed
+    `city`/`region`/`country`. There is no `location` key at all. Reading only
+    `location` -- which an earlier version did -- returned None for every
+    Workable posting, and a posting with no location sails through
+    `geography_kill` untouched, because that rule deliberately keeps what it
+    cannot read. A London claims job surviving as a plausible Sacramento one is
+    exactly what the fixture suite exists to catch.
+    """
     if entry.get("telecommuting"):
         return "Remote"
-    location = entry.get("location") or {}
-    if isinstance(location, str):
-        return location
-    parts = [location.get("city"), location.get("region"), location.get("country")]
-    joined = ", ".join(p for p in parts if p)
+
+    location = entry.get("location")
+    if isinstance(location, str) and location.strip():
+        return location.strip()
+    if isinstance(location, dict):
+        if joined := _join(location.get("city"), location.get("region"),
+                           location.get("country")):
+            return joined
+
+    if joined := _join(entry.get("city"), entry.get("state"), entry.get("country")):
+        return joined
+
+    for candidate in entry.get("locations") or []:
+        if not isinstance(candidate, dict) or candidate.get("hidden"):
+            continue
+        if joined := _join(candidate.get("city"), candidate.get("region"),
+                           candidate.get("country")):
+            return joined
+    return None
+
+
+def _join(*parts: Any) -> str | None:
+    joined = ", ".join(str(part).strip() for part in parts if part and str(part).strip())
     return joined or None
 
 

@@ -1,0 +1,71 @@
+[
+ {
+  "additionalPlain": "Compensation\nThe US base salary range for this role is $95.4K–$190K annually, plus equity and benefits.\nCompensation is determined by role, level, location, and individual qualifications, including skills, experience, and scope of responsibility. Pay may vary by geographic location and other job-related factors.\n\nBenefits\nWe offer meaningful equity and a comprehensive US benefits package, includin ...[trimmed]",
+  "additional": "<div>\n<div><strong><em>Compensation</em></strong><br aria-hidden=\"true\"><em>The US base salary range for this role is </em><strong><em>$95.4K–$190K annually</em></strong><em>, plus equity and benefits.</em><br aria-hidden=\"true\"><em>Compensation is determined by role, level, location, and individual qualifications, including skills, experience, and scope of responsibility. Pay may vary by geograph ...[trimmed]",
+  "categories": {
+   "commitment": "Full-time (remote)",
+   "location": "Remote-North & South America",
+   "team": "Engineering",
+   "allLocations": [
+    "Remote-North & South America"
+   ]
+  },
+  "createdAt": 1605753685375,
+  "descriptionPlain": "Metabase is the easiest way for people to get insights from their data, from tiny startups who get up and running quickly to major corporations with tens of thousands of users. That's why people love us.\n \nWe bring data tools with the elegance and simplicity of consumer products to the crufty world of enterprise business intelligence. We provide an opinionated open source starting point for how co ...[trimmed]",
+  "description": "<div>Metabase is the easiest way for people to get insights from their data, from tiny startups who get up and running quickly to major corporations with tens of thousands of users. That's why people <a href=\"https://www.metabase.com/love\" class=\"postings-link\">love us</a>.</div>\n<div>&nbsp;</div>\n<div>We bring data tools with the elegance and simplicity of consumer products to the crufty world of ...[trimmed]",
+  "id": "5eca795c-48dd-496a-be23-2181068a5450",
+  "lists": [],
+  "text": "Analytics Engineer",
+  "country": "US",
+  "workplaceType": "remote",
+  "opening": "<div>Metabase is the easiest way for people to get insights from their data, from tiny startups who get up and running quickly to major corporations with tens of thousands of users. That's why people <a class=\"postings-link\" href=\"https://www.metabase.com/love\">love us</a>.</div>\n<div>&nbsp;</div>\n<div>We bring data tools with the elegance and simplicity of consumer products to the crufty world of ...[trimmed]",
+  "openingPlain": "Metabase is the easiest way for people to get insights from their data, from tiny startups who get up and running quickly to major corporations with tens of thousands of users. That's why people love us.\n \nWe bring data tools with the elegance and simplicity of consumer products to the crufty world of enterprise business intelligence. We provide an opinionated open source starting point for how co ...[trimmed]",
+  "descriptionBody": "<div>Metabase is looking for an Analytics Engineer to support our team.</div>\n<div>&nbsp;</div>\n<div>This role will be a key part of the operations team, using the disparate data sources we have on our customer base, customer onboarding, and community intelligence to better understand our users, their needs and what we should do to better help our customers.</div>\n<div>&nbsp;</div>\n<div><strong>Th ...[trimmed]",
+  "descriptionBodyPlain": "Metabase is looking for an Analytics Engineer to support our team.\n \nThis role will be a key part of the operations team, using the disparate data sources we have on our customer base, customer onboarding, and community intelligence to better understand our users, their needs and what we should do to better help our customers.\n \nThings you'll do :\n \n- Iteratively refine our data, build models and  ...[trimmed]",
+  "hostedUrl": "https://jobs.lever.co/metabase/5eca795c-48dd-496a-be23-2181068a5450",
+  "applyUrl": "https://jobs.lever.co/metabase/5eca795c-48dd-496a-be23-2181068a5450/apply"
+ },
+ {
+  "additionalPlain": "Compensation\nThe US base salary range for this role is $116K–$213K annually, plus equity and benefits.\nCompensation is determined by role, level, location, and individual qualifications, including skills, experience, and scope of responsibility. Pay may vary by geographic location and other job-related factors.\n\nBenefits\nWe offer meaningful equity and a comprehensive US benefits package, including ...[trimmed]",
+  "additional": "<div>\n<div><strong><em>Compensation</em></strong><br aria-hidden=\"true\"><em>The US base salary range for this role is </em><strong><em>$116K–$213K annually</em></strong><em>, plus equity and benefits.</em><br aria-hidden=\"true\"><em>Compensation is determined by role, level, location, and individual qualifications, including skills, experience, and scope of responsibility. Pay may vary by geographi ...[trimmed]",
+  "categories": {
+   "commitment": "Full-time (remote)",
+   "location": "Global Remote",
+   "team": "Engineering",
+   "allLocations": [
+    "Global Remote"
+   ]
+  },
+  "createdAt": 1776800480563,
+  "descriptionPlain": "Metabase is the easiest way for people to get insights from their data, from tiny startups who get up and running quickly to major corporations with tens of thousands of users. That's why people love us.\n \nWe bring data tools with the elegance and simplicity of consumer products to the crufty world of enterprise business intelligence. We provide an opinionated open source starting point for how co ...[trimmed]",
+  "description": "<div>Metabase is the easiest way for people to get insights from their data, from tiny startups who get up and running quickly to major corporations with tens of thousands of users. That's why people <a href=\"https://www.metabase.com/love\" class=\"postings-link\">love us</a>.</div>\n<div>&nbsp;</div>\n<div>We bring data tools with the elegance and simplicity of consumer products to the crufty world of ...[trimmed]",
+  "id": "ee8203b5-2cf7-4eae-afd6-3f9724761ad9",
+  "lists": [
+   {
+    "text": "What You'll Do",
+    "content": "\n<li><strong>Own and proactively improve our GitHub Actions-based CI pipelines</strong> — not just fixing what breaks, but anticipating bottlenecks and reliability issues before they impact the team</li>\n<li><strong>Triage and resolve flaky tests</strong> across a large, multi-layered test suite spanning unit, integration, and end-to-end tests — identifying systemic patterns, not just one-off fixe ...[trimmed]"
+   },
+   {
+    "text": "What We're Looking For",
+    "content": "\n<li>Demonstrated experience working with CI/CD systems in a professional engineering environment — you don't need to be a 10-year veteran, but you need to have done this work, done it well, and owned it</li>\n<li>A proactive, ownership-driven mindset — you notice things that are heading in the wrong direction and fix them without waiting to be asked</li>\n<li>The independence to manage your own pri ...[trimmed]"
+   },
+   {
+    "text": "Nice to Have",
+    "content": "\n<li>Familiarity with Clojure and TypeScript</li>\n<li>Experience testing against or operating cloud data warehouses or analytical databases</li>\n<li>Experience building and supporting software release pipelines</li>\n"
+   },
+   {
+    "text": "Why This Role",
+    "content": "\n<li>You'll have real ownership over systems that directly affect the productivity of a 70-person engineering team</li>\n<li>You'll work on infrastructure that supports widely used open source software</li>\n<li>Fully remote, any timezone — we're serious about async-first culture</li>\n<li>You'll have the autonomy to identify and drive improvements rather than just work a ticket queue</li>\n"
+   }
+  ],
+  "text": "CI Engineer",
+  "country": "US",
+  "workplaceType": "remote",
+  "opening": "<div>Metabase is the easiest way for people to get insights from their data, from tiny startups who get up and running quickly to major corporations with tens of thousands of users. That's why people <a class=\"postings-link\" href=\"https://www.metabase.com/love\">love us</a>.</div>\n<div>&nbsp;</div>\n<div>We bring data tools with the elegance and simplicity of consumer products to the crufty world of ...[trimmed]",
+  "openingPlain": "Metabase is the easiest way for people to get insights from their data, from tiny startups who get up and running quickly to major corporations with tens of thousands of users. That's why people love us.\n \nWe bring data tools with the elegance and simplicity of consumer products to the crufty world of enterprise business intelligence. We provide an opinionated open source starting point for how co ...[trimmed]",
+  "descriptionBody": "<div>Our engineering team of ~70 people is fully distributed across the globe, and we work hard to build an async-friendly, shipping-focused engineering culture.</div>\n<div><!-- notionvc: 0979c66b-d313-4015-9645-f5f4b6db6835 --></div>\n<div>&nbsp;</div>\n<div>\n<div dir=\"auto\" data-block-id=\"31a69354-c901-805b-9e79-eb57efc2d09a\">\n<div>\n<div>\n<div>\n<h3 id=\":r41:\" role=\"textbox\" contenteditable=\"true\"  ...[trimmed]",
+  "descriptionBodyPlain": "Our engineering team of ~70 people is fully distributed across the globe, and we work hard to build an async-friendly, shipping-focused engineering culture.\n\n \nAbout the Role\n \nWe're seeking CI Engineers to join our engineering team and help keep our testing and release infrastructure healthy, fast, and reliable. This is a critical role — our CI and testing systems are complex, deeply relied upon, ...[trimmed]",
+  "hostedUrl": "https://jobs.lever.co/metabase/ee8203b5-2cf7-4eae-afd6-3f9724761ad9",
+  "applyUrl": "https://jobs.lever.co/metabase/ee8203b5-2cf7-4eae-afd6-3f9724761ad9/apply"
+ }
+]

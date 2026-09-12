@@ -1,8 +1,9 @@
 """Hard filters. Pure functions, no I/O, heavily tested.
 
 These run before any model sees a posting. They are cheap, deterministic, and
-they cut roughly 85% of ingested volume -- which is the point, because the
-expensive judgment step should only ever see plausible jobs.
+they cut 96% of ingested volume -- 9,856 of 10,258 on the night of 2026-08-30,
+the last clean production run. That ratio is the point: the expensive judgment
+step should only ever see plausible jobs, and at 402 survivors a night it does.
 
 Two rules govern everything in this file:
 
