@@ -1,5 +1,7 @@
 # apply-engine
 
+[![ci](https://github.com/AJ-Protzel/apply-engine/actions/workflows/ingest.yml/badge.svg?branch=main)](https://github.com/AJ-Protzel/apply-engine/actions/workflows/ingest.yml)
+
 A job-application pipeline that runs on hosted infrastructure, sources postings from public ATS APIs, filters them against an explicit ruleset, ranks what survives, and stops at the submit button.
 
 > **Archived, finished, and no longer running.** It ran nightly from 2026-08-27 to 2026-09-01 — six scheduled runs, three of them clean — and then the Supabase project behind it went away and the last two failed on connection. The schedule is now removed rather than left to fail every morning. What is here is the complete ingest-and-rank engine with its tests; the parts that never ran are named as such below rather than described in the future tense. `python -m apply_engine.run_ingest --dry-run` still works on a fresh clone against live endpoints, with no credentials and no database.
